@@ -32,13 +32,15 @@ class Login extends React.Component {
     }
   }
 
-  handleSubmit = () => {
-    const { email } = this.state;
-    const { getSaveEmail } = this.props;
-    getSaveEmail(email);
+  handleClickSubmit = () => {
+    const { email, password } = this.state;
+    const { dispatchSaveEmail } = this.props;
+    dispatchSaveEmail(email, password);
 
     this.setState({
       redirect: true,
+    }, () => {
+      this.handleLoginValidation();
     });
   }
 
@@ -46,7 +48,7 @@ class Login extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
+    }, this.handleLoginValidation);
   }
 
   render() {
@@ -60,6 +62,7 @@ class Login extends React.Component {
             type="email"
             data-testid="email-input"
             placeholder="E-mail"
+            name="email"
             value={ email }
             onChange={ this.handleChange }
             required
@@ -68,6 +71,7 @@ class Login extends React.Component {
             type="password"
             data-testid="password-input"
             placeholder="Password"
+            name="password"
             value={ password }
             onChange={ this.handleChange }
             required
@@ -75,7 +79,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ buttonDisabled }
-            onClick={ this.handleSubmit }
+            onClick={ () => this.handleClickSubmit() }
           >
             Entrar
           </button>
@@ -89,14 +93,13 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getSaveEmail: (email) => dispatch(saveEmail(email)),
-});
+  dispatchSaveEmail: (email) => dispatch(saveEmail(email)) });
 
 Login.propTypes = {
-  history: PropTypes.shape({
+  /* history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-  }),
-  getSaveEmail: PropTypes.func.isRequired,
+  }), */
+  dispatchSaveEmail: PropTypes.func.isRequired,
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
