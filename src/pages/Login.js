@@ -48,7 +48,9 @@ class Login extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    }, this.handleLoginValidation);
+    }, () => {
+      this.handleLoginValidation();
+    });
   }
 
   render() {
