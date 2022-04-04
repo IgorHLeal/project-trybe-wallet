@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { saveEmail } from '../actions';
+import '../styles/login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -58,9 +59,10 @@ class Login extends React.Component {
     /* console.log(this.props); */
     return (
       <div className="login">
-        <h3 className="title-login">Login</h3>
+        <h1 className="title-login">Login</h1>
         <div className="inputs-login">
           <input
+            className="input-email"
             type="email"
             data-testid="email-input"
             placeholder="E-mail"
@@ -70,6 +72,7 @@ class Login extends React.Component {
             required
           />
           <input
+            className="input-password"
             type="password"
             data-testid="password-input"
             placeholder="Password"
@@ -79,6 +82,7 @@ class Login extends React.Component {
             required
           />
           <button
+            className="button"
             type="button"
             disabled={ buttonDisabled }
             onClick={ () => this.handleClickSubmit() }
