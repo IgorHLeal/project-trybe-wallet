@@ -55,7 +55,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, buttonDisabled, redirect } = this.state;
-
+    /* console.log(this.props); */
     return (
       <div className="login">
         <h3 className="title-login">Login</h3>
