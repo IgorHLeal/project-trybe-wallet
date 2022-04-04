@@ -5,6 +5,7 @@ import { RECEIVE_CURRENCY_QUOTATION_SUCCESS,
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  error: null,
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
@@ -12,7 +13,9 @@ function walletReducer(state = INITIAL_STATE, action) {
   case RECEIVE_CURRENCY_QUOTATION_SUCCESS:
     return {
       ...state,
-      currencies: action.currencies,
+      // Object.keys retorna um array e o filter remove a opção USDT
+      currencies: Object.keys(action.currencies)
+        .filter((element) => element !== 'USDT'),
     };
   case RECEIVE_CURRENCY_QUOTATION_FAILURE:
     return {
@@ -25,3 +28,7 @@ function walletReducer(state = INITIAL_STATE, action) {
 }
 
 export default walletReducer;
+
+// ---------- REFERÊNCIAS ----------
+
+// Object.keys: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
