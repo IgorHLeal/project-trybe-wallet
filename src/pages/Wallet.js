@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchCurrencyQuotation } from '../actions';
+import '../styles/wallet.css';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -23,16 +24,19 @@ class Wallet extends React.Component {
     const { email } = this.props;
     const { total } = this.state;
     return (
-      <>
+      <div className="header-wallet">
         {/* exiba o email da pessoa usuária que fez login */}
         <div data-testid="email-field">{email}</div>
 
         {/* Um elemento com a despesa total gerada pela lista de gastos. */}
-        <div data-testid="total-field">{total}</div>
+        <div data-testid="total-field">
+          Despesa total:
+          {total}
+        </div>
 
         {/* Um elemento que mostre qual câmbio está sendo utilizado */}
         <div data-testid="header-currency-field">BRL</div>
-      </>
+      </div>
     );
   }
 }

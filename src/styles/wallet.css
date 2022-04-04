@@ -1,0 +1,7 @@
+.header-wallet {
+  display: flex;
+  flex-direction: row;
+  float: right;
+  justify-content: space-between;
+  width: 35%;
+}
