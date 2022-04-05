@@ -1,4 +1,5 @@
 import getCurrencyQuotation from '../services/api';
+import getSaveExpenses from '../services/saveExpensesAPI';
 
 // Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
@@ -38,6 +39,37 @@ export function fetchCurrencyQuotation() {
       dispatch(receiveCurrencyQuotationSuccess(data));
     } catch (error) {
       dispatch(receiveCurrencyQuotationFailure(error));
+    }
+  };
+}
+
+// Requisito 6
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+export const SAVE_EXPENSES_SUCCESS = 'SAVE_EXPENSES_FAILURE';
+export const SAVE_EXPENSES_FAILURE = 'SAVE_EXPENSES_FAILURE';
+
+export const saveExpenses = () => ({
+  type: SAVE_EXPENSES,
+});
+
+export const saveExpensesSuccess = (expenses) => ({
+  type: SAVE_EXPENSES_SUCCESS,
+  expenses,
+});
+
+export const saveExpensesFailure = (error) => ({
+  type: SAVE_EXPENSES_FAILURE,
+  error,
+});
+
+export function fetchExpenses() {
+  return async (dispatch) => {
+    dispatch(saveExpenses());
+    try {
+      const data = await getSaveExpenses();
+      dispatch(saveExpensesSuccess(data));
+    } catch (error) {
+      dispatch(saveExpensesFailure(error));
     }
   };
 }
