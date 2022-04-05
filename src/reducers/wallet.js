@@ -1,8 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { RECEIVE_CURRENCY_QUOTATION_SUCCESS,
+import {
+  RECEIVE_CURRENCY_QUOTATION_SUCCESS,
   RECEIVE_CURRENCY_QUOTATION_FAILURE,
   SAVE_EXPENSES_SUCCESS,
-  SAVE_EXPENSES_FAILURE } from '../actions';
+  SAVE_EXPENSES_FAILURE,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -30,7 +32,7 @@ function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       expenses: [...state.expenses, {
         id: state.expenseId,
-        ...action.expenses,
+        ...action.data,
         exchangeRates: action.currencies,
       }],
       expenseId: state.expenseId + 1,

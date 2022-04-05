@@ -6,7 +6,7 @@ import '../styles/walletHeader.css';
 class WalletHeader extends React.Component {
   render() {
     const { email, expenses } = this.props;
-    console.log(expenses);
+    /* console.log(expenses); */
 
     const totalExpenses = expenses.reduce(
       (accumulator, current) => {
@@ -14,7 +14,7 @@ class WalletHeader extends React.Component {
         const currentValue = Number(value * Number(exchangeRates[currency].ask));
         return accumulator + currentValue;
       }, 0,
-    );
+    ).toFixed(2);
 
     return (
       <header className="header-wallet">
@@ -24,7 +24,7 @@ class WalletHeader extends React.Component {
         {/* Um elemento com a despesa total gerada pela lista de gastos. */}
         <div data-testid="total-field">
           Despesa total:
-          { totalExpenses.toFixed(2) }
+          { totalExpenses }
         </div>
 
         {/* Um elemento que mostre qual câmbio está sendo utilizado */}
@@ -46,10 +46,10 @@ const mapStateToProps = (state) => ({
 WalletHeader.propTypes = {
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    currency: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    currency: PropTypes.string,
     exchangeRates: PropTypes.objectOf(PropTypes.shape({
-      ask: PropTypes.string.isRequired,
+      ask: PropTypes.string,
     })).isRequired,
   })).isRequired,
 };

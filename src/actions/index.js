@@ -1,5 +1,5 @@
 import getCurrencyQuotation from '../services/api';
-import getSaveExpenses from '../services/saveExpensesAPI';
+/* import getSaveExpenses from '../services/saveExpensesAPI'; */
 
 // Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
@@ -63,12 +63,14 @@ export const saveExpensesFailure = (error) => ({
   error,
 });
 
-export const fetchExpenses = (data) => async (dispatch) => {
-  dispatch(saveExpenses());
-  try {
-    const response = await getSaveExpenses();
-    dispatch(saveExpensesSuccess(data, response));
-  } catch (error) {
-    dispatch(saveExpensesFailure(error));
-  }
-};
+export function fetchExpenses(data) {
+  return async (dispatch) => {
+    dispatch(saveExpenses());
+    try {
+      const response = await getCurrencyQuotation();
+      dispatch(saveExpensesSuccess(data, response));
+    } catch (error) {
+      dispatch(saveExpensesFailure(error));
+    }
+  };
+}

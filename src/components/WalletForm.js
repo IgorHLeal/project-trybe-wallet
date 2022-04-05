@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveExpenses } from '../actions';
+import { fetchExpenses } from '../actions';
 import '../styles/walletForm.css';
 
 class WalletForm extends Component {
@@ -34,12 +34,13 @@ class WalletForm extends Component {
 
     this.setState({
       value: '',
+      description: '',
     });
   }
 
   render() {
     const { currencies } = this.props;
-    console.log(currencies);
+    /* console.log(currencies); */
     const { value, description, currency, method, tag } = this.state;
     return (
       <form className="wallet-form">
@@ -122,7 +123,7 @@ class WalletForm extends Component {
         <button
           className="button"
           type="submit"
-          onClick={ () => this.handleClickSubmit }
+          onClick={ this.handleClickSubmit }
         >
           Adicionar despesa
         </button>
@@ -136,7 +137,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchsaveExpenses: (expenses) => dispatch(saveExpenses(expenses)),
+  dispatchSaveExpenses: (expenses) => dispatch(fetchExpenses(expenses)),
 });
 
 WalletForm.propTypes = {
