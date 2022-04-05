@@ -52,8 +52,9 @@ export const saveExpenses = () => ({
   type: SAVE_EXPENSES,
 });
 
-export const saveExpensesSuccess = (expenses) => ({
+export const saveExpensesSuccess = (data, expenses) => ({
   type: SAVE_EXPENSES_SUCCESS,
+  data,
   expenses,
 });
 
@@ -62,14 +63,12 @@ export const saveExpensesFailure = (error) => ({
   error,
 });
 
-export function fetchExpenses() {
-  return async (dispatch) => {
-    dispatch(saveExpenses());
-    try {
-      const data = await getSaveExpenses();
-      dispatch(saveExpensesSuccess(data));
-    } catch (error) {
-      dispatch(saveExpensesFailure(error));
-    }
-  };
-}
+export const fetchExpenses = (data) => async (dispatch) => {
+  dispatch(saveExpenses());
+  try {
+    const response = await getSaveExpenses();
+    dispatch(saveExpensesSuccess(data, response));
+  } catch (error) {
+    dispatch(saveExpensesFailure(error));
+  }
+};
