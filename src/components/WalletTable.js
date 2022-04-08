@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class WalletTable extends Component {
+class WalletTable extends Component {
   render() {
+    const { expenses } = this.props;
     return (
-      /* table: define uma tabela */
       <table>
-        {/* thead: Agrupa o conteúdo do cabeçalho em uma tabela */}
         <thead>
-          {/* tr: Define uma linha em uma tabela */}
           <tr>
-            {/* th: Define uma célula de cabeçalho em uma tabela */}
             <th>Descrição</th>
             <th>Tag</th>
             <th>Método de pagamento</th>
@@ -21,10 +20,44 @@ export default class WalletTable extends Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
+        <tbody>
+          {
+            expenses.map((element) => (
+              <tr key={ element.id }>
+                <td>{element.description}</td>
+                <td>{element.tag}</td>
+                <td>{element.method}</td>
+                <td>{Number(element.value).toFixed(2)}</td>
+                <td>{element.exchangeRates[element.currency].name.split('/')[0]}</td>
+                <td>{Number(element.exchangeRates[element.currency].ask).toFixed(2)}</td>
+                <td>
+                  {
+                    (
+                      (Number(element.value))
+                        * (Number(element.exchangeRates[element.currency].ask))
+                    ).toFixed(2)
+                  }
+                </td>
+                <td>Real</td>
+              </tr>
+            ))
+          }
+        </tbody>
       </table>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  newRates: state.wallet.newRates,
+});
+
+WalletTable.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+}.isRequired;
+
+export default connect(mapStateToProps)(WalletTable);
 // ---------- REFERÊNCIAS ----------
 // https://www.w3schools.com/html/html_tables.asp
