@@ -2,8 +2,7 @@
 import {
   RECEIVE_CURRENCY_QUOTATION_SUCCESS,
   RECEIVE_CURRENCY_QUOTATION_FAILURE,
-  SAVE_EXPENSES_SUCCESS,
-  SAVE_EXPENSES_FAILURE,
+  SAVE_EXPENSES,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -11,6 +10,7 @@ const INITIAL_STATE = {
   expenses: [],
   error: null,
   expenseId: 0,
+  newRates: {},
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
@@ -21,28 +21,19 @@ function walletReducer(state = INITIAL_STATE, action) {
       // Object.keys retorna um array e o filter remove a opção USDT
       currencies: Object.keys(action.currencies)
         .filter((element) => element !== 'USDT'),
+      newRates: action.currencies,
     };
   case RECEIVE_CURRENCY_QUOTATION_FAILURE:
     return {
       ...state,
       currencies: action.error,
     };
-  case SAVE_EXPENSES_SUCCESS:
+  case SAVE_EXPENSES:
     return {
       ...state,
-      expenses: [...state.expenses, {
-        id: state.expenseId,
-        ...action.data,
-        exchangeRates: action.currencies,
-      }],
-      expenseId: state.expenseId + 1,
+      expenses: [...state.expenses,
+        action.data],
     };
-  case SAVE_EXPENSES_FAILURE:
-    return {
-      ...state,
-      error: action.error,
-    };
-
   default:
     return state;
   }

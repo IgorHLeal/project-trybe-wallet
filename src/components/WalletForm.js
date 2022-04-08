@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchExpenses } from '../actions';
+import { fetchCurrencyQuotation, saveExpenses } from '../actions';
 import '../styles/walletForm.css';
 
 class WalletForm extends Component {
   constructor(props) {
     super(props);
 
+    this.alimentacao = 'Alimentação';
+
     this.state = {
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: this.alimentacao,
     };
   }
 
@@ -26,15 +28,30 @@ class WalletForm extends Component {
 
   // Requisito 6
   // Usar lógica parecida com a do componente Login
-  handleClickSubmit = (event) => {
+  handleClickSubmit = async (event) => {
     event.preventDefault();
-    const { dispatchSaveExpenses } = this.props;
+    const { dispatchSaveExpenses, expenses, newRates } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    const { dispatchRates } = this.props;
+    await dispatchRates();
+    const response = {
+      id: expenses.length,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: newRates,
+    };
     /* console.log(dispatchSaveExpenses); */
-    dispatchSaveExpenses(this.state);
+    await dispatchSaveExpenses(response);
 
     this.setState({
       value: '',
       description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: this.alimentacao,
     });
   }
 
@@ -44,11 +61,11 @@ class WalletForm extends Component {
     const { value, description, currency, method, tag } = this.state;
     return (
       <form className="wallet-form">
-        <label htmlFor="value-input">
+        <label htmlFor="value">
           Valor:
           <input
             data-testid="value-input"
-            id="value-input"
+            id="value"
             type="number"
             name="value"
             value={ value }
@@ -56,11 +73,11 @@ class WalletForm extends Component {
           />
         </label>
 
-        <label htmlFor="description-input">
+        <label htmlFor="description">
           Descrição:
           <input
             data-testid="description-input"
-            id="description-input"
+            id="description"
             type="text"
             name="description"
             value={ description }
@@ -68,11 +85,11 @@ class WalletForm extends Component {
           />
         </label>
 
-        <label htmlFor="currency-input">
+        <label htmlFor="currency">
           Moeda:
           <select
             data-testid="currency-input"
-            id="currency-input"
+            id="currency"
             name="currency"
             value={ currency }
             onChange={ this.handleChange }
@@ -88,11 +105,11 @@ class WalletForm extends Component {
           </select>
         </label>
 
-        <label htmlFor="method-input">
+        <label htmlFor="method">
           Método de pagamento:
           <select
             data-testid="method-input"
-            id="method-input"
+            id="method"
             name="method"
             value={ method }
             onChange={ this.handleChange }
@@ -103,12 +120,12 @@ class WalletForm extends Component {
           </select>
         </label>
 
-        <label htmlFor="tag-input">
+        <label htmlFor="tag">
           Categoria:
           <select
             data-testid="tag-input"
-            id="tag-input"
-            name="tag-input"
+            id="tag"
+            name="tag"
             value={ tag }
             onChange={ this.handleChange }
           >
@@ -134,10 +151,13 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  newRates: state.wallet.newRates,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSaveExpenses: (expenses) => dispatch(fetchExpenses(expenses)),
+  dispatchSaveExpenses: (expenses) => dispatch(saveExpenses(expenses)),
+  dispatchRates: (expenses) => dispatch(fetchCurrencyQuotation(expenses)),
 });
 
 WalletForm.propTypes = {

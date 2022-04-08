@@ -45,32 +45,38 @@ export function fetchCurrencyQuotation() {
 
 // Requisito 6
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
-export const SAVE_EXPENSES_SUCCESS = 'SAVE_EXPENSES_FAILURE';
-export const SAVE_EXPENSES_FAILURE = 'SAVE_EXPENSES_FAILURE';
 
-export const saveExpenses = () => ({
+export const GET_RATES = 'GET_RATES';
+export const RECEIVE_RATES_SUCCESS = 'RECEIVE_RATES_SUCCESS';
+export const RECEIVE_RATES_FAILURE = 'RECEIVE_RATES_FAILURE';
+
+export const saveExpenses = (data) => ({
   type: SAVE_EXPENSES,
-});
-
-export const saveExpensesSuccess = (data, expenses) => ({
-  type: SAVE_EXPENSES_SUCCESS,
   data,
-  expenses,
 });
 
-export const saveExpensesFailure = (error) => ({
-  type: SAVE_EXPENSES_FAILURE,
+export const requestRates = () => ({
+  type: GET_RATES,
+});
+
+export const receiveRatesSuccess = (currencies) => ({
+  type: RECEIVE_RATES_SUCCESS,
+  currencies,
+});
+
+export const receiveRatesFailure = (error) => ({
+  type: RECEIVE_RATES_FAILURE,
   error,
 });
 
-export function fetchExpenses(data) {
+export function fetchRates() {
   return async (dispatch) => {
-    dispatch(saveExpenses());
+    dispatch(requestRates());
     try {
-      const response = await getCurrencyQuotation();
-      dispatch(saveExpensesSuccess(data, response));
+      const data = await getCurrencyQuotation();
+      dispatch(receiveRatesSuccess(data));
     } catch (error) {
-      dispatch(saveExpensesFailure(error));
+      dispatch(receiveRatesFailure(error));
     }
   };
 }

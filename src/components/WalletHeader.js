@@ -23,7 +23,6 @@ class WalletHeader extends React.Component {
 
         {/* Um elemento com a despesa total gerada pela lista de gastos. */}
         <div data-testid="total-field">
-          Despesa total:
           { totalExpenses }
         </div>
 
