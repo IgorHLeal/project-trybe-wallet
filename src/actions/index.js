@@ -1,5 +1,4 @@
 import getCurrencyQuotation from '../services/api';
-/* import getSaveExpenses from '../services/saveExpensesAPI'; */
 
 // Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
@@ -45,7 +44,6 @@ export function fetchCurrencyQuotation() {
 
 // Requisito 6
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
-
 export const GET_RATES = 'GET_RATES';
 export const RECEIVE_RATES_SUCCESS = 'RECEIVE_RATES_SUCCESS';
 export const RECEIVE_RATES_FAILURE = 'RECEIVE_RATES_FAILURE';

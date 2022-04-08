@@ -27,6 +27,7 @@ class WalletForm extends Component {
   }
 
   // Requisito 6
+  // Concluído com a ajuda do Rafael Oliveira Elias - Turma 19A
   // Usar lógica parecida com a do componente Login
   handleClickSubmit = async (event) => {
     event.preventDefault();
@@ -43,7 +44,6 @@ class WalletForm extends Component {
       tag,
       exchangeRates: newRates,
     };
-    /* console.log(dispatchSaveExpenses); */
     await dispatchSaveExpenses(response);
 
     this.setState({
@@ -57,7 +57,6 @@ class WalletForm extends Component {
 
   render() {
     const { currencies } = this.props;
-    /* console.log(currencies); */
     const { value, description, currency, method, tag } = this.state;
     return (
       <form className="wallet-form">

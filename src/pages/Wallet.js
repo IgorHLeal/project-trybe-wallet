@@ -10,7 +10,6 @@ import '../styles/wallet.css';
 class Wallet extends React.Component {
   componentDidMount() {
     // Requisição da API
-    /* console.log('PROPS', this.props); */
     // Acessa a prop criada no mapDispatch
     const { getCurrencyQuotation } = this.props;
     getCurrencyQuotation();

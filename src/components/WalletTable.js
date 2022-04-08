@@ -20,6 +20,7 @@ class WalletTable extends Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
+        {/* Requisito 8 concluído com ajuda do Rafael Oliveira - Turma 19A */}
         <tbody>
           {
             expenses.map((element) => (
@@ -49,9 +50,7 @@ class WalletTable extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
-  newRates: state.wallet.newRates,
 });
 
 WalletTable.propTypes = {

@@ -56,7 +56,6 @@ class Login extends React.Component {
 
   render() {
     const { email, password, buttonDisabled, redirect } = this.state;
-    /* console.log(this.props); */
     return (
       <div className="login">
         <h1 className="title-login">Login</h1>
@@ -102,9 +101,6 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchSaveEmail: (email) => dispatch(saveEmail(email)) });
 
 Login.propTypes = {
-  /* history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }), */
   dispatchSaveEmail: PropTypes.func.isRequired,
 }.isRequired;
 

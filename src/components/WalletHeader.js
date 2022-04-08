@@ -6,7 +6,6 @@ import '../styles/walletHeader.css';
 class WalletHeader extends React.Component {
   render() {
     const { email, expenses } = this.props;
-    /* console.log(expenses); */
 
     const totalExpenses = expenses.reduce(
       (accumulator, current) => {
@@ -18,15 +17,10 @@ class WalletHeader extends React.Component {
 
     return (
       <header className="header-wallet">
-        {/* exiba o email da pessoa usuária que fez login */}
         <div data-testid="email-field">{email}</div>
-
-        {/* Um elemento com a despesa total gerada pela lista de gastos. */}
         <div data-testid="total-field">
           { totalExpenses }
         </div>
-
-        {/* Um elemento que mostre qual câmbio está sendo utilizado */}
         <div data-testid="header-currency-field">BRL</div>
       </header>
     );
@@ -37,10 +31,6 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
 });
-
-/* WalletHeader.propTypes = {
-  email: PropTypes.string.isRequired,
-}; */
 
 WalletHeader.propTypes = {
   email: PropTypes.string.isRequired,

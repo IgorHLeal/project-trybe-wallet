@@ -42,5 +42,4 @@ function walletReducer(state = INITIAL_STATE, action) {
 export default walletReducer;
 
 // ---------- REFERÊNCIAS ----------
-
 // Object.keys: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
